@@ -1,4 +1,4 @@
-package com.example.demo.controller
+package com.example.demo.database
 
 import org.jetbrains.exposed.dao.IntIdTable
 import org.jetbrains.exposed.sql.EnumerationColumnType

@@ -1,9 +1,7 @@
 package com.example.demo.controller
 
 import com.example.demo.view.MainView
-import com.example.demo.view.components.CreateKeyView
-import com.example.demo.view.components.HomeView
-import com.example.demo.view.components.KeysView
+import com.example.demo.view.components.*
 import javafx.scene.Node
 import tornadofx.*
 
@@ -12,12 +10,16 @@ class SideMenuController() : Controller() {
     val homeView : HomeView by inject()
     val createKey : CreateKeyView by inject()
     val keysView : KeysView by inject()
+    val createPersonnelView : CreatePersonnelView by inject()
+    val personsView : PersonnelView by inject()
 
     fun setView(view: String) {
         var currentView: Node = when(view){
             "HomeView" -> homeView.root
             "CreateKeyView" -> createKey.root
             "KeysView" -> keysView.root
+            "CreatePersonnelView" -> createPersonnelView.root
+            "PersonsView" -> personsView.root
             else -> homeView.root
         }
         mainView.root.center = currentView

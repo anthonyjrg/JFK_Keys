@@ -1,7 +1,7 @@
 package com.example.demo.view.components
 
 
-import com.example.demo.database.KeysDbController
+import com.example.demo.controller.KeysDbController
 import com.example.demo.model.Key
 import com.example.demo.model.KeyModel
 import de.jensd.fx.glyphs.icons525.Icons525
@@ -9,7 +9,6 @@ import de.jensd.fx.glyphs.icons525.Icons525View
 import javafx.beans.property.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import tornadofx.*
-import tornadofx.Stylesheet.Companion.form
 
 
 class CreateKeyView : View("My View") {

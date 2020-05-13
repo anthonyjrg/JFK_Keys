@@ -1,7 +1,6 @@
-package com.example.demo.database
+package com.example.demo.controller
 
-import com.example.demo.controller.Keys
-import com.example.demo.controller.Keys.roomNumber
+import com.example.demo.database.Keys
 import com.example.demo.model.Key
 import com.example.demo.model.KeyModel
 import javafx.collections.ObservableList
@@ -40,7 +39,7 @@ class KeysDbController: Controller() {
                 KeyModel().apply {
                     item = it
                 }
-            }.observable()
+            }.asObservable()
         }
     }
 

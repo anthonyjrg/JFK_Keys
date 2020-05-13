@@ -1,6 +1,6 @@
 package com.example.demo.view.components
 
-import com.example.demo.database.KeysDbController
+import com.example.demo.controller.KeysDbController
 import com.example.demo.model.KeyModel
 import tornadofx.*
 

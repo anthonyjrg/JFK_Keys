@@ -6,12 +6,15 @@ import tornadofx.*
 class Styles : Stylesheet() {
     companion object {
         val heading by cssclass()
+        val label by cssclass()
+
+        val headings by cssclass()
     }
 
     init {
         label and heading {
             padding = box(10.px)
-            fontSize = 20.px
+            fontSize = 40.px
             fontWeight = FontWeight.BOLD
         }
 
@@ -30,4 +33,6 @@ class Styles : Stylesheet() {
             }
         }
     }
+
+
 }
