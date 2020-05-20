@@ -15,25 +15,14 @@ class SideMenuView : View() {
 
     override val root = vbox {
 
-        addClass(SideMenuStyle.wrapper)
-        paddingAll = 20
-
-        button ("Home") {
-            action {
-                controller.setView("HomeView")
+        listmenu(theme = "blue") {
+            item(text = "Contacts") {
+                // Marks this item as active.
+                activeItem = this
+                whenSelected { /* Do some action */ }
             }
-        }
-
-        button("View Keys"){
-            action {
-                controller.setView("KeysView")
-            }
-        }
-
-        button("Add New Key") {
-            action {
-                controller.setView("CreateKeyView")
-            }
+            item(text = "Projects" )
+            item(text = "Settings")
         }
     }
 }

@@ -15,6 +15,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.junit.platform:junit-platform-gradle-plugin:1.1.0"
         classpath "org.openjfx:javafx-plugin:0.0.8"
+        classpath "org.controlsfx:controlsfx:8.40.14"
     }
 }
 
@@ -29,7 +30,7 @@ compileKotlin {
 }
 
 javafx {
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
+    modules =  [ 'javafx.controls', 'javafx.fxml', 'javafx.base', 'javafx.graphics', 'javafx.media', 'javafx.web']
 }
 
 
@@ -44,12 +45,21 @@ repositories {
     }
 }
 
+
+applicationDefaultJvmArgs = [
+        "--add-opens=javafx.controls/javafx.scene.control.skin=org.controlsfx.controls",
+        "--add-opens=javafx.graphics/javafx.scene=org.controlsfx.controls"
+]
+
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile "no.tornado:tornadofx:$tornadofx_version"
     compile group:'org.xerial', name:'sqlite-jdbc', version:'3.8.11.2'
     compile 'org.jetbrains.exposed:exposed:0.17.7'
     compile group: 'de.jensd', name: 'fontawesomefx-icons525', version: '4.2.0-9.1.2'
+    compile 'org.controlsfx:controlsfx:11.0.0'
+    implementation 'org.controlsfx:controlsfx:11.0.0'
+    implementation 'org.openjfx:javafx:12.0.+'
     testCompile "org.junit.jupiter:junit-jupiter-api:$junit_version"
     testRuntime "org.junit.jupiter:junit-jupiter-engine:$junit_version"
 }
