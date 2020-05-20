@@ -1,11 +1,12 @@
 package com.example.demo.model
 
-import com.example.demo.controller.Keys
+import com.example.demo.database.Keys
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleStringProperty
 import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
+import tornadofx.*
 
 class Key(id: EntityID<Int>): IntEntity(id){
     companion object: IntEntityClass<Key>(Keys)
@@ -23,5 +24,12 @@ class Key(id: EntityID<Int>): IntEntity(id){
     fun floorProperty() = SimpleIntegerProperty(this, "floor", floor)
 
     override fun toString() = "Office: $officeName, Key Number: $keyNumber"
+}
+
+class KeyModel : ItemViewModel<Key>() {
+    val roomNumber = bind { item?.roomNumberProperty() }
+    val officeName = bind { item?.officeNameProperty() }
+    val keyNumber = bind { item?.keyNumberProperty() }
+    val floor = bind { item?.floorProperty() }
 }
 
