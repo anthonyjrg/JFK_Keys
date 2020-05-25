@@ -11,6 +11,8 @@ class SideMenuStyle : Stylesheet() {
         val menuContainer by cssclass()
         val h1 by cssclass()
         val h2 by cssclass()
+        val h4 by cssclass()
+        val panel by cssclass()
     }
 
     init {
@@ -42,8 +44,18 @@ class SideMenuStyle : Stylesheet() {
             fill = c("#1f177a")
             fontWeight = FontWeight.BOLD
         }
+        h4{
+            fontSize = 18.px
+            fill = c("#454545")
+            padding =box(10.px, 0.px)
+        }
         Styles.headings {
 
+        }
+        panel{
+            padding = box(20.px)
+            backgroundColor = multi(c("#ececec"))
+            borderRadius =  multi(box(10.px))
         }
     }
 

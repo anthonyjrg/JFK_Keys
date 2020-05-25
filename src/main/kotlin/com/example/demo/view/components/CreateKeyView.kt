@@ -1,7 +1,8 @@
 package com.example.demo.view.components
 
 
-import com.example.demo.controller.KeysDbController
+import com.example.demo.controller.KeysController
+import com.example.demo.database.execute
 import com.example.demo.model.Key
 import com.example.demo.model.KeyModel
 import de.jensd.fx.glyphs.icons525.Icons525
@@ -12,7 +13,7 @@ import tornadofx.*
 
 
 class CreateKeyView : View("My View") {
-    val keysDb : KeysDbController by inject()
+    val keys : KeysController by inject()
     var keyModel = KeyModel()
     val floors: List<Int> = listOf(0, 1, 2, 3, 4)
     val selectedFloor = SimpleIntegerProperty(floors.first())
@@ -46,9 +47,8 @@ class CreateKeyView : View("My View") {
         }
         button ("Create Key"){
             action {
-                keysDb.connect()
-                transaction {
-                    keysDb.keys.add(
+                execute {
+                    keys.keysList.add(
                             KeyModel().apply {
                                 item = Key.new {
                                     this.keyNumber = keyModel.keyNumber.value.toInt()
@@ -59,7 +59,6 @@ class CreateKeyView : View("My View") {
                             }
                     )
                 }
-
             }
         }
     }

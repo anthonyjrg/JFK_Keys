@@ -23,6 +23,7 @@ class Person(id: EntityID<Int>): IntEntity(id) {
     var staffNumber by Persons.staffNumber
     fun staffNumberProperty() = staffNumber?.let { SimpleIntegerProperty(this, "staffNumber", it) }
 
+    val fullName: String get() = "$firstName $lastName"
 }
 
 class PersonModel : ItemViewModel<Person>() {

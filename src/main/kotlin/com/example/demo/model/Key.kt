@@ -26,7 +26,7 @@ class Key(id: EntityID<Int>): IntEntity(id){
     override fun toString() = "Office: $officeName, Key Number: $keyNumber"
 }
 
-class KeyModel : ItemViewModel<Key>() {
+class KeyModel(): ItemViewModel<Key>() {
     val roomNumber = bind { item?.roomNumberProperty() }
     val officeName = bind { item?.officeNameProperty() }
     val keyNumber = bind { item?.keyNumberProperty() }

@@ -30,7 +30,8 @@ compileKotlin {
 }
 
 applicationDefaultJvmArgs = [
-        "--add-opens=javafx.graphics/javafx.scene=ALL-UNNAMED"
+        "--add-opens=javafx.graphics/javafx.scene=ALL-UNNAMED",
+        "--add-opens=javafx.controls/javafx.scene.control=ALL-UNNAMED"
 ]
 
 javafx {
