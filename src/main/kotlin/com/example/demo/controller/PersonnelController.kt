@@ -13,7 +13,7 @@ import tornadofx.*
 import java.sql.Connection
 
 class PersonnelController: Controller() {
-    val persons: ObservableList<PersonModel> by lazy {
+    val personsList: ObservableList<PersonModel> by lazy {
         execute {
             Person.all().map {
                 PersonModel().apply {
@@ -22,4 +22,14 @@ class PersonnelController: Controller() {
             }.asObservable()
         }
     }
+
+    val persons: ObservableList<Person> by lazy {
+        var list = mutableListOf<Person>()
+        personsList.forEach{
+            list.add(it.item)
+        }
+        list.asObservable()
+    }
+
+    val currentPerson: PersonModel by inject()
 }

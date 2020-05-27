@@ -6,12 +6,13 @@ import javafx.scene.Node
 import tornadofx.*
 
 class SideMenuController() : Controller() {
-    val mainView : MainView by inject()
-    val homeView : HomeView by inject()
-    val createKey : CreateKeyView by inject()
-    val keysView : KeysView by inject()
-    val createPersonnelView : CreatePersonnelView by inject()
-    val personsView : PersonnelView by inject()
+    val mainView: MainView by inject()
+    val homeView: HomeView by inject()
+    val createKey: CreateKeyView by inject()
+    val keysView: KeysView by inject()
+    val createPersonnelView: CreatePersonnelView by inject()
+    val personsView: PersonnelView by inject()
+    val logView: LogsView by inject()
 
     fun setView(view: String) {
         var currentView: Node = when(view){
@@ -20,17 +21,10 @@ class SideMenuController() : Controller() {
             "KeysView" -> keysView.root
             "CreatePersonnelView" -> createPersonnelView.root
             "PersonsView" -> personsView.root
+            "LogView" -> logView.root
             else -> homeView.root
         }
         mainView.root.center = currentView
-    }
-
-    fun showNewKeyView() {
-
-    }
-
-    fun writeToDb(inputValue: String?) {
-        println("Writing $inputValue to database!")
     }
 }
 

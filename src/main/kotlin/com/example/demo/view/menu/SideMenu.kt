@@ -56,6 +56,7 @@ class SideMenu : View("My View") {
                 addClass(SideMenuStyle.menuItm)
                 item("View Logs") {
                     addClass(SideMenuStyle.subMenuItem)
+                    whenSelected { controller.setView("LogView") }
                 }
             }
         }

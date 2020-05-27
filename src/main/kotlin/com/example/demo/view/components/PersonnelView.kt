@@ -8,8 +8,10 @@ class PersonnelView : View("My View") {
     val personnelController: PersonnelController by inject()
 
     override val root = vbox {
+        addClass("mainBox")
+
         tableview<PersonModel>{
-            items = personnelController.persons
+            items = personnelController.personsList
             column("First Name", PersonModel::firstName)
             column("Last Name", PersonModel::lastName)
             column("Organization", PersonModel::organization)

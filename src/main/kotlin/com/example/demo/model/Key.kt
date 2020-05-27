@@ -1,7 +1,9 @@
 package com.example.demo.model
 
+import com.example.demo.database.KeyPersonLogs
 import com.example.demo.database.Keys
 import javafx.beans.property.SimpleIntegerProperty
+import javafx.beans.property.SimpleObjectProperty
 import javafx.beans.property.SimpleStringProperty
 import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.dao.IntEntity
@@ -23,6 +25,9 @@ class Key(id: EntityID<Int>): IntEntity(id){
     var floor by Keys.floor
     fun floorProperty() = SimpleIntegerProperty(this, "floor", floor)
 
+    var currentLog by Log optionalReferencedOn  Keys.currentLogId
+    fun currentLogProperty() = SimpleObjectProperty<Log>(this, "currentLog", currentLog)
+
     override fun toString() = "Office: $officeName, Key Number: $keyNumber"
 }
 
@@ -31,5 +36,6 @@ class KeyModel(): ItemViewModel<Key>() {
     val officeName = bind { item?.officeNameProperty() }
     val keyNumber = bind { item?.keyNumberProperty() }
     val floor = bind { item?.floorProperty() }
+    val currentLog = bind{item?.currentLogProperty()}
 }
 

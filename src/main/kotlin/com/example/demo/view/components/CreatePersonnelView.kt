@@ -40,7 +40,7 @@ class CreatePersonnelView : View("My View") {
         button ("Add New Personnel"){
             action {
                    execute {
-                       personnelController.persons.add(
+                       personnelController.personsList.add(
                                PersonModel().apply {
                                    item = Person.new {
                                        this.firstName = personModel.firstName.value.toString()

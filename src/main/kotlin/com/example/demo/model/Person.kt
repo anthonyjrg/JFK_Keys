@@ -24,6 +24,10 @@ class Person(id: EntityID<Int>): IntEntity(id) {
     fun staffNumberProperty() = staffNumber?.let { SimpleIntegerProperty(this, "staffNumber", it) }
 
     val fullName: String get() = "$firstName $lastName"
+
+    override fun toString(): String {
+        return "$fullName: $staffNumber, $organization"
+    }
 }
 
 class PersonModel : ItemViewModel<Person>() {

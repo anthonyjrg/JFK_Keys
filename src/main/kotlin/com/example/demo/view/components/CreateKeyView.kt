@@ -8,12 +8,11 @@ import com.example.demo.model.KeyModel
 import de.jensd.fx.glyphs.icons525.Icons525
 import de.jensd.fx.glyphs.icons525.Icons525View
 import javafx.beans.property.*
-import org.jetbrains.exposed.sql.transactions.transaction
 import tornadofx.*
 
 
 class CreateKeyView : View("My View") {
-    val keys : KeysController by inject()
+    val keysController : KeysController by inject()
     var keyModel = KeyModel()
     val floors: List<Int> = listOf(0, 1, 2, 3, 4)
     val selectedFloor = SimpleIntegerProperty(floors.first())
@@ -48,7 +47,7 @@ class CreateKeyView : View("My View") {
         button ("Create Key"){
             action {
                 execute {
-                    keys.keysList.add(
+                    keysController.keysList.add(
                             KeyModel().apply {
                                 item = Key.new {
                                     this.keyNumber = keyModel.keyNumber.value.toInt()
@@ -58,6 +57,7 @@ class CreateKeyView : View("My View") {
                                 }
                             }
                     )
+                    keyModel.rollback()
                 }
             }
         }

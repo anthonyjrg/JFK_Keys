@@ -4,8 +4,9 @@ import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
 import tornadofx.*
 
-class SideMenuStyle : Stylesheet() {
+class SideMenuStyle: Stylesheet() {
     companion object {
+        val mainBox by cssclass()
         val menuItm by cssclass()
         val subMenuItem by cssclass()
         val menuContainer by cssclass()
@@ -31,9 +32,11 @@ class SideMenuStyle : Stylesheet() {
         menuContainer {
             padding = box(40.px, 10.px, 30.px, 30.px)
         }
-    }
 
-    init {
+        mainBox{
+            padding = box(15.px)
+        }
+
         h1 {
             fontSize = 30.px
             fill = c("#454545")
@@ -49,14 +52,13 @@ class SideMenuStyle : Stylesheet() {
             fill = c("#454545")
             padding =box(10.px, 0.px)
         }
-        Styles.headings {
-
-        }
         panel{
-            padding = box(20.px)
-            backgroundColor = multi(c("#ececec"))
+            padding = box(15.px)
+            backgroundColor = multi(c("#e7e7e7"))
             borderRadius =  multi(box(10.px))
+            backgroundRadius = multi(box(10.px))
         }
+
     }
 
 }
