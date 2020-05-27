@@ -5,13 +5,10 @@ import com.example.demo.controller.PersonnelController
 import com.example.demo.controller.LogController
 import com.example.demo.database.execute
 import com.example.demo.model.KeyModel
-import com.example.demo.model.LogModel
-import com.example.demo.model.Person
 import com.example.demo.model.PersonModel
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.scene.control.TextField
-import org.jetbrains.exposed.sql.exists
 import org.joda.time.DateTime
 import tornadofx.*
 
@@ -20,9 +17,14 @@ class KeysView : View("My View") {
     val personnelController: PersonnelController by inject()
     val logController: LogController by inject()
     var keyModel = KeyModel()
-    var textDisplay: TextField by singleAssign()
+    var selectedPerson = PersonModel()
+    var officeTextDisplay: TextField by singleAssign()
+    var officeTextDisplay2:  TextField by singleAssign()
+    var personTextDisplay: TextField by singleAssign()
     var editable: Boolean = false
     var logOutForm: Form by singleAssign()
+    var logInForm: Form by singleAssign()
+
 
     override val root = vbox {
         addClass("mainBox")
@@ -51,8 +53,15 @@ class KeysView : View("My View") {
         keysTable.onSelectionChange {
             keyModel = it!!
             execute {
-                textDisplay.text = it.officeName.value
+                officeTextDisplay.text = it.officeName.value
+                officeTextDisplay2.text = it.officeName.value
+
                 editable = (keyModel.item?.currentLog != null) && (keyModel.item.currentLog?.returnedDate == null)
+                print(it.item.currentLog.toString())
+                selectedPerson.item = it.item.currentLog?.person
+                selectedPerson.item?.fullName.let{
+                    personTextDisplay.text = it
+                }
             }
             logOutForm.isDisable = editable
         }
@@ -70,14 +79,13 @@ class KeysView : View("My View") {
                     spacing = 10.0
                     fieldset {
                         label("Office:")
-                        textDisplay = textfield() {
+                        officeTextDisplay = textfield() {
                             isEditable = false
                         }
                     }
                     fieldset {
                         label("Select Person")
-
-                        combobox(property = personnelController.currentPerson.itemProperty, values = personnelController.persons) {
+                        combobox(property = personnelController.currentPerson.itemProperty, values = personnelController.personList) {
                             cellFormat { text = it.fullName }
                         }
                         hbox {
@@ -86,7 +94,6 @@ class KeysView : View("My View") {
                             label(personnelController.currentPerson.staffNumber)
                             label(personnelController.currentPerson.organization)
                         }
-
                     }
                 }
 
@@ -96,6 +103,34 @@ class KeysView : View("My View") {
                         logController.logOutKey(keyModel.keyNumber.value.toInt(), personnelController.currentPerson.item, DateTime.now())
                     }
                 }
+            }
+            logInForm = form {
+                label("Log In Key") {
+                    addClass("h4")
+                    spacing = 10.0
+                }
+                hbox{
+                    fieldset {
+                        label("Office:")
+                        //@Todo refactor duplication
+                        officeTextDisplay2 = textfield() {
+                            isEditable = false
+                        }
+                    }
+                    fieldset {
+                        label("In Possesion Of:")
+                        personTextDisplay = textfield {
+                            isEditable = false
+                        }
+                        hbox {
+                            spacing = 5.0
+                            paddingTop = 5
+                            label(personnelController.currentPerson.staffNumber)
+                            label(personnelController.currentPerson.organization)
+                        }
+                    }
+                }
+
             }
         }
     }

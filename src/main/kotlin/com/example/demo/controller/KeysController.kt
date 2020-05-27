@@ -26,6 +26,22 @@ class KeysController: Controller() {
             }.asObservable()
         }
     }
+
+    fun createKey(keyModel: KeyModel){
+        execute {
+            keysList.add(
+                    KeyModel().apply {
+                        item = Key.new {
+                            this.keyNumber = keyModel.keyNumber.value.toInt()
+                            this.roomNumber = keyModel.roomNumber.value.toInt()
+                            this.floor = keyModel.floor.value.toInt()
+                            this.officeName = keyModel.officeName.value.toString()
+                        }
+                    }
+            )
+        }
+        keyModel.rollback()
+    }
 }
 
 

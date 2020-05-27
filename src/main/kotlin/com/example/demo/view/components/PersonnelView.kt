@@ -11,7 +11,7 @@ class PersonnelView : View("My View") {
         addClass("mainBox")
 
         tableview<PersonModel>{
-            items = personnelController.personsList
+            items = personnelController.personModelList
             column("First Name", PersonModel::firstName)
             column("Last Name", PersonModel::lastName)
             column("Organization", PersonModel::organization)

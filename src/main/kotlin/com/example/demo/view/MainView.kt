@@ -11,7 +11,7 @@ class MainView : View("Key Logs") {
     val homeView : HomeView by inject()
 
     override val root = borderpane {
-        setPrefSize(900.00, 700.00)
+        setPrefSize(1000.00, 700.00)
         top = menuBar.root
         left = sideMenu.root
         center = homeView.root

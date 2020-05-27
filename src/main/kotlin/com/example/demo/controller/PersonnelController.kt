@@ -1,19 +1,13 @@
 package com.example.demo.controller
 
-import com.example.demo.database.Persons
 import com.example.demo.database.execute
 import com.example.demo.model.Person
 import com.example.demo.model.PersonModel
 import javafx.collections.ObservableList
-import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.transactions.TransactionManager
-import org.jetbrains.exposed.sql.transactions.transaction
 import tornadofx.*
-import java.sql.Connection
 
 class PersonnelController: Controller() {
-    val personsList: ObservableList<PersonModel> by lazy {
+    val personModelList: ObservableList<PersonModel> by lazy {
         execute {
             Person.all().map {
                 PersonModel().apply {
@@ -23,13 +17,29 @@ class PersonnelController: Controller() {
         }
     }
 
-    val persons: ObservableList<Person> by lazy {
-        var list = mutableListOf<Person>()
-        personsList.forEach{
+    val personList: ObservableList<Person> by lazy {
+        val list = mutableListOf<Person>()
+        personModelList.forEach{
             list.add(it.item)
         }
         list.asObservable()
     }
 
     val currentPerson: PersonModel by inject()
+
+    fun addPersonnel(personModel: PersonModel){
+        execute{
+            personModelList.add(
+                    PersonModel().apply {
+                        item = Person.new {
+                            this.firstName = personModel.firstName.value.toString()
+                            this.lastName = personModel.lastName.value.toString()
+                            this.organization = personModel.organization.value.toString()
+                            this.staffNumber = personModel.staffNumber.value.toInt()
+                        }
+                    }
+            )
+        }
+        personModel.rollback()
+    }
 }

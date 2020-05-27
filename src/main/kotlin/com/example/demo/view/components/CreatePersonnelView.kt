@@ -39,20 +39,8 @@ class CreatePersonnelView : View("My View") {
         }
         button ("Add New Personnel"){
             action {
-                   execute {
-                       personnelController.personsList.add(
-                               PersonModel().apply {
-                                   item = Person.new {
-                                       this.firstName = personModel.firstName.value.toString()
-                                       this.lastName = personModel.lastName.value.toString()
-                                       this.organization = personModel.organization.value.toString()
-                                       this.staffNumber = personModel.staffNumber.value.toInt()
-                                   }
-                               }
-                       )
-                   }
+                   personnelController.addPersonnel(personModel)
                 }
-                personModel.rollback()
             }
         }
 }
