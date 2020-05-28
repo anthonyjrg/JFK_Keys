@@ -11,16 +11,14 @@ class LogsView : View() {
     val logController: LogController by inject()
 
     override val root = vbox {
-
-        addClass("mainBox")
+        addClass("boxes")
 
         tableview(logController.logList){
             columnResizePolicy = SmartResize.POLICY
             column("Key", LogModel::keyNumber)
             column("Person", LogModel::person)
             column("Logged Out Date", LogModel::issueDate)
-            column("Returned Date", LogModel::returnedDate).cellFormat {  }
+            column("Returned Date", LogModel::returnedDate)
         }
     }
-
 }

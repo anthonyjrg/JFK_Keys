@@ -18,7 +18,7 @@ class CreateKeyView : View("My View") {
     val selectedFloor = SimpleIntegerProperty(floors.first())
 
     override val root = vbox {
-
+        addClass("boxes")
         form()
         {
             title = "New Key"

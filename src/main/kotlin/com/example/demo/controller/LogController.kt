@@ -32,8 +32,17 @@ class LogController: Controller(){
             //Finding key being logged out and updating its latest log value.
             val key = Key.find(Keys.keyNumber eq keyNumber).firstOrNull()
             key?.currentLog = log
-
         }
+    }
 
+    fun logInKey(log: Log){
+        execute {
+            //Set the return date in log to now
+            log.returnedDate = DateTime.now()
+
+            //Remove Log attached to this key
+            val key = Key.find(Keys.keyNumber eq log.keyNumber).firstOrNull()
+            key?.currentLog = null
+        }
     }
 }

@@ -21,13 +21,13 @@ class KeysView : View("My View") {
     var officeTextDisplay: TextField by singleAssign()
     var officeTextDisplay2:  TextField by singleAssign()
     var personTextDisplay: TextField by singleAssign()
-    var editable: Boolean = false
+    var isKeyLoggedOut: Boolean = false
     var logOutForm: Form by singleAssign()
     var logInForm: Form by singleAssign()
 
 
     override val root = vbox {
-        addClass("mainBox")
+        addClass("boxes")
         val keysTable = tableview(keysController.keysList){
             columnResizePolicy = SmartResize.POLICY
             column("Office", KeyModel::officeName)
@@ -56,81 +56,98 @@ class KeysView : View("My View") {
                 officeTextDisplay.text = it.officeName.value
                 officeTextDisplay2.text = it.officeName.value
 
-                editable = (keyModel.item?.currentLog != null) && (keyModel.item.currentLog?.returnedDate == null)
+                isKeyLoggedOut = (keyModel.item?.currentLog != null) && (keyModel.item.currentLog?.returnedDate == null)
                 print(it.item.currentLog.toString())
                 selectedPerson.item = it.item.currentLog?.person
                 selectedPerson.item?.fullName.let{
                     personTextDisplay.text = it
                 }
             }
-            logOutForm.isDisable = editable
+            logOutForm.isDisable = isKeyLoggedOut
+            logInForm.isDisable = !isKeyLoggedOut
         }
+
         hbox {
-            addClass("panel")
-            logOutForm = form {
-                //If the currently select item has no return date(i.e it is checked out) we disable the form
+            spacing = 10.0
+            hbox {
+                addClass("panel")
 
+                logOutForm = form {
+                    //If the currently select item has no return date(i.e it is checked out) we disable the form
+                    label("Log Out Key") {
+                        addClass("h4")
+                    }
 
-                label("Log Out Key") {
-                    addClass("h4")
-                }
-
-                hbox {
-                    spacing = 10.0
-                    fieldset {
-                        label("Office:")
-                        officeTextDisplay = textfield() {
-                            isEditable = false
+                    hbox {
+                        spacing = 10.0
+                        fieldset {
+                            label("Office:")
+                            officeTextDisplay = textfield() {
+                                isEditable = false
+                            }
+                        }
+                        fieldset {
+                            label("Select Person")
+                            combobox(property = personnelController.currentPerson.itemProperty, values = personnelController.personList) {
+                                cellFormat { text = it.fullName }
+                            }
+                            hbox {
+                                spacing = 5.0
+                                paddingTop = 5
+                                label(personnelController.currentPerson.staffNumber)
+                                label(personnelController.currentPerson.organization)
+                            }
                         }
                     }
-                    fieldset {
-                        label("Select Person")
-                        combobox(property = personnelController.currentPerson.itemProperty, values = personnelController.personList) {
-                            cellFormat { text = it.fullName }
-                        }
-                        hbox {
-                            spacing = 5.0
-                            paddingTop = 5
-                            label(personnelController.currentPerson.staffNumber)
-                            label(personnelController.currentPerson.organization)
-                        }
-                    }
-                }
 
-                button("Log Out Key") {
+                    button("Log Out Key") {
 
-                    action {
-                        logController.logOutKey(keyModel.keyNumber.value.toInt(), personnelController.currentPerson.item, DateTime.now())
+                        action {
+                            logController.logOutKey(keyModel.keyNumber.value.toInt(), personnelController.currentPerson.item, DateTime.now())
+                            //Todo Update list after logging key in
+                            keysController.keysList
+                        }
                     }
                 }
             }
-            logInForm = form {
-                label("Log In Key") {
-                    addClass("h4")
-                    spacing = 10.0
-                }
-                hbox{
-                    fieldset {
-                        label("Office:")
-                        //@Todo refactor duplication
-                        officeTextDisplay2 = textfield() {
-                            isEditable = false
-                        }
-                    }
-                    fieldset {
-                        label("In Possesion Of:")
-                        personTextDisplay = textfield {
-                            isEditable = false
-                        }
-                        hbox {
-                            spacing = 5.0
-                            paddingTop = 5
-                            label(personnelController.currentPerson.staffNumber)
-                            label(personnelController.currentPerson.organization)
-                        }
-                    }
-                }
 
+            hbox {
+                addClass("panel")
+
+                logInForm = form {
+                    label("Log In Key") {
+                        addClass("h4")
+                    }
+                    hbox {
+                        spacing = 10.0
+                        fieldset {
+                            label("Office:")
+                            //@Todo refactor duplication
+                            officeTextDisplay2 = textfield() {
+                                isEditable = false
+                            }
+                        }
+                        fieldset {
+                            label("In Possesion Of:")
+                            personTextDisplay = textfield {
+                                isEditable = false
+                            }
+                            hbox {
+                                spacing = 5.0
+                                paddingTop = 5
+                                label()
+                                label()
+                            }
+                        }
+                    }
+
+                    button("Log In Key") {
+                        action{
+                            logController.logInKey(keyModel.currentLog.value)
+                            keysController.keysList.remove(keyModel)
+                        }
+                    }
+                }
             }
         }
     }

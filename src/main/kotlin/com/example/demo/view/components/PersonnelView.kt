@@ -8,7 +8,7 @@ class PersonnelView : View("My View") {
     val personnelController: PersonnelController by inject()
 
     override val root = vbox {
-        addClass("mainBox")
+        addClass("boxes")
 
         tableview<PersonModel>{
             items = personnelController.personModelList
