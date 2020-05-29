@@ -84,12 +84,16 @@ class KeysView : View("My View") {
                             label("Office:")
                             officeTextDisplay = textfield() {
                                 isEditable = false
+                                validator(){
+                                   
+                                }
                             }
                         }
                         fieldset {
                             label("Select Person")
                             combobox(property = personnelController.currentPerson.itemProperty, values = personnelController.personList) {
                                 cellFormat { text = it.fullName }
+
                             }
                             hbox {
                                 spacing = 5.0
