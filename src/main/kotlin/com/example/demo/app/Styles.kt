@@ -1,5 +1,8 @@
 package com.example.demo.app
 
+import javafx.scene.effect.BlurType
+import javafx.scene.effect.DropShadow
+import javafx.scene.effect.InnerShadow
 import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
 import tornadofx.*
@@ -21,13 +24,13 @@ class Styles : Stylesheet() {
         }
 
         button {
-            textFill = c("#5a5a5a")
+            textFill = c("#6e6e6e")
             minWidth = 150.px
             prefWidth = 150.px
             maxWidth = 150.px
             padding = box(10.px)
             borderRadius = multi(box(0.px))
-            backgroundColor = multi(c("#e4e4e4", 0.30))
+            backgroundColor = multi(c("#dfdfdf"))
             fontWeight = FontWeight.BOLD
 
             and(hover) {
@@ -41,6 +44,7 @@ class Styles : Stylesheet() {
             backgroundColor = multi(c("#e7e7e7"))
             borderRadius =  multi(box(10.px))
             backgroundRadius = multi(box(10.px))
+            effect = DropShadow(5.0, c("#A6A4A4"))
         }
 
         boxes{

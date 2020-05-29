@@ -15,6 +15,7 @@ class CreatePersonnelView : View("My View") {
     val personnelController: PersonnelController by inject()
 
     override val root = vbox {
+        addClass("boxes")
         form()
         {
             title = "New Key"

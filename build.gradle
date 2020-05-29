@@ -56,7 +56,7 @@ dependencies {
     compile group:'org.xerial', name:'sqlite-jdbc', version:'3.8.11.2'
     compile 'org.jetbrains.exposed:exposed:0.17.7'
     compile 'no.tornado:tornadofx-controls:1.0.4'
-
+    compile 'no.tornado:tornadofx-controlsfx:0.1'
     compile group: 'net.java.openjfx.backport', name: 'openjfx-78-backport-compat', version: '1.8.0.1'
     compile group: 'de.jensd', name: 'fontawesomefx-icons525', version: '4.2.0-9.1.2'
 
