@@ -1,5 +1,6 @@
 package com.example.demo.app
 
+import javafx.scene.effect.DropShadow
 import javafx.scene.paint.Color
 import javafx.scene.text.FontWeight
 import tornadofx.*
@@ -31,6 +32,7 @@ class SideMenuStyle: Stylesheet() {
         }
         menuContainer {
             padding = box(40.px, 10.px, 30.px, 30.px)
+            effect = DropShadow(5.0, c("#A6A4A4"))
         }
 
         h1 {

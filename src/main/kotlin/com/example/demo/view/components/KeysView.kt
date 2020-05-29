@@ -28,6 +28,8 @@ class KeysView : View("My View") {
 
     override val root = vbox {
         addClass("boxes")
+
+
         val keysTable = tableview(keysController.keysList){
             columnResizePolicy = SmartResize.POLICY
             column("Office", KeyModel::officeName)
@@ -101,7 +103,6 @@ class KeysView : View("My View") {
                     }
 
                     button("Log Out Key") {
-
                         action {
                             logController.logOutKey(keyModel.keyNumber.value.toInt(), personnelController.currentPerson.item, DateTime.now())
                             //Todo Update list after logging key in
