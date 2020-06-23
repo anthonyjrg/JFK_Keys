@@ -9,6 +9,7 @@ import com.example.demo.model.PersonModel
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import javafx.scene.control.TextField
+import javafx.stage.StageStyle
 import org.joda.time.DateTime
 import tornadofx.*
 
@@ -69,6 +70,14 @@ class KeysView : View("My View") {
             logInForm.isDisable = !isKeyLoggedOut
         }
 
+        keysTable.onUserSelect(2) {
+            val editScope = Scope()
+            setInScope(it, editScope)
+            find(KeyModal::class, editScope).openModal(
+                stageStyle = StageStyle.UNIFIED
+            )
+        }
+
         hbox {
             spacing = 10.0
             hbox {
@@ -86,9 +95,7 @@ class KeysView : View("My View") {
                             label("Office:")
                             officeTextDisplay = textfield() {
                                 isEditable = false
-                                validator(){
-                                   
-                                }
+
                             }
                         }
                         fieldset {

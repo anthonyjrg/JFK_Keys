@@ -27,6 +27,9 @@ class Key(id: EntityID<Int>): IntEntity(id){
     var floor by Keys.floor
     fun floorProperty() = SimpleIntegerProperty(this, "floor", floor)
 
+    var notes by Keys.notes
+    fun notesProperty() = SimpleStringProperty(this, "notes", notes)
+
     var currentLog by Log optionalReferencedOn  Keys.currentLogId
     fun currentLogProperty() = SimpleObjectProperty<Log>(this, "currentLog", currentLog)
 
@@ -39,6 +42,7 @@ class KeyModel(): ItemViewModel<Key>() {
     val keyNumber = bind { item?.keyNumberProperty() }
     val floor = bind { item?.floorProperty() }
     val currentLog = bind{item?.currentLogProperty()}
+    val notes = bind{item?.notesProperty()}
 
 }
 

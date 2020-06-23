@@ -3,6 +3,7 @@ package com.example.demo.app
 import com.example.demo.view.MainView
 import org.jetbrains.exposed.sql.Database
 import com.example.demo.database.createTables
+import javafx.application.Application
 import tornadofx.*
 
 class MyApp: App(MainView::class, Styles::class, SideMenuStyle::class){

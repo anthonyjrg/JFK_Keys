@@ -14,7 +14,6 @@ import java.sql.Connection
 
 
 class KeysController: Controller() {
-
     /**
      * Returns a observable list of key models containing all keys.
      */
@@ -42,6 +41,13 @@ class KeysController: Controller() {
             )
         }
         keyModel.rollback()
+    }
+
+    fun delete(key: KeyModel){
+        execute {
+            key.item.delete()
+        }
+        keysList.remove(key)
     }
 }
 

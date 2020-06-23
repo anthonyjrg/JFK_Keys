@@ -7,5 +7,6 @@ object Keys : IntIdTable("keys"){
     val officeName = varchar("officeName", 256).uniqueIndex()
     val keyNumber = integer("keyNumber").uniqueIndex()
     val floor = integer("floor")
+    val notes = text("notes").nullable()
     val currentLogId = reference("current_log_id", KeyPersonLogs).nullable()
 }
