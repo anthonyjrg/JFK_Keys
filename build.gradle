@@ -38,7 +38,7 @@ compileKotlin {
 }
 
 application{
-    mainClassName = "com.example.demo.app.MyApp"
+    mainClassName = "com.example.demo.app.MainKt"
     applicationDefaultJvmArgs = [
             "--add-opens=javafx.graphics/javafx.scene=ALL-UNNAMED",
             "--add-opens=javafx.controls/javafx.scene.control=ALL-UNNAMED"
@@ -81,7 +81,7 @@ dependencies {
     testRuntime "org.junit.jupiter:junit-jupiter-engine:$junit_version"
 }
 
-mainClassName = "com.example.demo.app.MyApp"
+mainClassName = "com.example.demo.app.MainKt"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -102,5 +102,17 @@ jar {
         exclude "META-INF/*.DSA"
         exclude "META-INF/*.RSA"
     }
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+    archiveClassifier = "all"
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    with jar
 }
 
