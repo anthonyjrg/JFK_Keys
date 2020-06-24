@@ -30,7 +30,6 @@ class KeysView : View("My View") {
     override val root = vbox {
         addClass("boxes")
 
-
         val keysTable = tableview(keysController.keysList){
             columnResizePolicy = SmartResize.POLICY
             column("Office", KeyModel::officeName)
@@ -73,9 +72,7 @@ class KeysView : View("My View") {
         keysTable.onUserSelect(2) {
             val editScope = Scope()
             setInScope(it, editScope)
-            find(KeyModal::class, editScope).openModal(
-                stageStyle = StageStyle.UNIFIED
-            )
+            find(KeyModal::class, editScope).openModal()
         }
 
         hbox {
